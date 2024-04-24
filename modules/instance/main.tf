@@ -8,8 +8,9 @@ resource "yandex_compute_instance" "vm-manager" {
   hostname = "manager-${count.index}"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = 4
+    memory = 4
+
   }
 
   boot_disk {
@@ -22,6 +23,10 @@ resource "yandex_compute_instance" "vm-manager" {
   network_interface {
     subnet_id = var.vpc_subnet_id
     nat       = true
+  }
+
+  scheduling_policy {
+    preemptible = true
   }
 
   metadata = {
